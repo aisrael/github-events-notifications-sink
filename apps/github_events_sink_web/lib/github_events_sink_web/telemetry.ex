@@ -1,4 +1,8 @@
 defmodule GithubEventsSinkWeb.Telemetry do
+  @moduledoc """
+  The Telemetry module
+  """
+
   use Supervisor
   import Telemetry.Metrics
 
