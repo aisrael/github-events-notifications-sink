@@ -47,7 +47,22 @@ config :esbuild,
   ]
 
 # Configures Elixir's Logger
+elixir_logger_level = System.get_env("ELIXIR_LOGGER_LEVEL", "info")
+
+level =
+  %{
+    "1" => :debug,
+    "2" => :info,
+    "3" => :warn,
+    "debug" => :debug,
+    "info" => :info,
+    "warn" => :warn
+  }
+  |> Map.get(String.downcase(elixir_logger_level), :info)
+
+# Configures Elixir's Logger
 config :logger, :console,
+  level: level,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
