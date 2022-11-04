@@ -26,7 +26,9 @@ defmodule GithubSignatureVerifier do
         Logger.debug("GithubSignatureVerifier.call(#{inspect(raw_body)})")
 
         computed_signature =
-          :crypto.hmac(:sha256, webhook_secret, raw_body) |> Base.encode16() |> String.downcase()
+          :crypto.mac(:hmac, :sha256, webhook_secret, raw_body)
+          |> Base.encode16()
+          |> String.downcase()
 
         Logger.debug("computed_signature: #{computed_signature}")
 
