@@ -23,7 +23,6 @@ defmodule GithubSignatureVerifier do
       if webhook_secret != nil do
         raw_body = conn.assigns[:raw_body]
         Logger.debug("webhook_secret: #{webhook_secret}")
-        Logger.debug("GithubSignatureVerifier.call(#{inspect(raw_body)})")
 
         computed_signature =
           :crypto.mac(:hmac, :sha256, webhook_secret, raw_body)
