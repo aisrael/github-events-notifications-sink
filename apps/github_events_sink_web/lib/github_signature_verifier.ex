@@ -18,8 +18,11 @@ defmodule GithubSignatureVerifier do
     if x_hub_signature_256 != nil do
       Logger.debug("x-hub-signature-256: #{x_hub_signature_256}")
 
-      if {:ok, webhook_secret} = Application.get_env(:github_events_sink, :webhook_secret) do
+      webhook_secret = Application.get_env(:github_events_sink, :webhook_secret)
+
+      if webhook_secret != nil do
         raw_body = conn.assigns[:raw_body]
+        Logger.debug("webhook_secret: #{webhook_secret}")
         Logger.debug("GithubSignatureVerifier.call(#{inspect(raw_body)})")
 
         computed_signature =
