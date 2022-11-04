@@ -7,7 +7,15 @@ defmodule GithubEventsSink.Umbrella.MixProject do
       version: "0.1.0",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      aliases: aliases()
+      aliases: aliases(),
+      releases: [
+        github_events_sink_umbrella: [
+          applications: [
+            github_events_sink: :permanent,
+            github_events_sink_web: :permanent
+          ]
+        ]
+      ]
     ]
   end
 
