@@ -37,6 +37,7 @@ defmodule GithubEventsSinkWeb.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:github_events_sink, in_umbrella: true},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
       {:phoenix, "~> 1.6.12"},
