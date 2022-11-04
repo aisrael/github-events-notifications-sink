@@ -12,7 +12,7 @@ defmodule GithubEventsSinkWeb.WebhookController do
     payload = conn.body_params
 
     case Webhooks.post_webhook(payload, conn.req_headers) do
-      {:ok, _result} ->
+      {:ok, _} ->
         send_resp(conn, :no_content, "")
 
       {:error, :unrecognized} ->

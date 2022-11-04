@@ -22,19 +22,19 @@ defmodule GithubEventsSink.Webhooks do
           {:ok, map()} | {:error, term()}
   # Unrecognised webhook
   def dispatch(payload, headers) do
-    case payload do
-      %{} ->
-        pretty_log_payload(payload)
-
-      _ ->
-        Logger.debug("payload: #{inspect(payload)}")
-    end
-
     Enum.each(headers, fn {key, value} ->
       Logger.debug("#{key}: #{value}")
     end)
 
-    {:error, :unrecognized}
+    case payload do
+      %{} ->
+        pretty_log_payload(payload)
+        {:ok, {}}
+
+      _ ->
+        Logger.debug("payload: #{inspect(payload)}")
+        {:error, :unrecognized}
+    end
   end
 
   defp pretty_log_payload(payload) do
