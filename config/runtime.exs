@@ -1,5 +1,13 @@
 import Config
 
+config :github_events_sink,
+  webhook_secret:
+    System.get_env("WEBHOOK_SECRET") ||
+      raise("""
+      environment variable WEBHOOK_SECRET is missing.
+      You can generate one by calling: mix phx.gen.secret
+      """)
+
 # config/runtime.exs is executed for all environments, including
 # during releases. It is executed after compilation and before the
 # system starts, so it is typically used to load production configuration

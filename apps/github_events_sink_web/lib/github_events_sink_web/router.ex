@@ -12,12 +12,19 @@ defmodule GithubEventsSinkWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug GithubSignatureVerifier
   end
 
   scope "/", GithubEventsSinkWeb do
     pipe_through :browser
 
     get "/", PageController, :index
+  end
+
+  scope "/", GithubEventsSinkWeb do
+    pipe_through :api
+
+    post("/webhook/*path", WebhookController, :hook)
   end
 
   # Other scopes may use custom stacks.
